@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_storage.dart';
+part of 'local_storage.dart';
 
 // ignore_for_file: type=lint
 class $UserSessionTableTable extends UserSessionTable
@@ -12,14 +12,14 @@ class $UserSessionTableTable extends UserSessionTable
   static const VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
   late final GeneratedColumn<String> email = GeneratedColumn<String>(
-      'email', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      'email', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _passwordMeta =
       const VerificationMeta('password');
   @override
   late final GeneratedColumn<String> password = GeneratedColumn<String>(
-      'password', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      'password', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [email, password];
   @override
@@ -35,10 +35,14 @@ class $UserSessionTableTable extends UserSessionTable
     if (data.containsKey('email')) {
       context.handle(
           _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
+    } else if (isInserting) {
+      context.missing(_emailMeta);
     }
     if (data.containsKey('password')) {
       context.handle(_passwordMeta,
           password.isAcceptableOrUnknown(data['password']!, _passwordMeta));
+    } else if (isInserting) {
+      context.missing(_passwordMeta);
     }
     return context;
   }
@@ -50,9 +54,9 @@ class $UserSessionTableTable extends UserSessionTable
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return UserSession(
       email: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}email']),
+          .read(DriftSqlType.string, data['${effectivePrefix}email'])!,
       password: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}password']),
+          .read(DriftSqlType.string, data['${effectivePrefix}password'])!,
     );
   }
 
@@ -63,8 +67,8 @@ class $UserSessionTableTable extends UserSessionTable
 }
 
 class UserSessionTableCompanion extends UpdateCompanion<UserSession> {
-  final Value<String?> email;
-  final Value<String?> password;
+  final Value<String> email;
+  final Value<String> password;
   final Value<int> rowid;
   const UserSessionTableCompanion({
     this.email = const Value.absent(),
@@ -72,10 +76,11 @@ class UserSessionTableCompanion extends UpdateCompanion<UserSession> {
     this.rowid = const Value.absent(),
   });
   UserSessionTableCompanion.insert({
-    this.email = const Value.absent(),
-    this.password = const Value.absent(),
+    required String email,
+    required String password,
     this.rowid = const Value.absent(),
-  });
+  })  : email = Value(email),
+        password = Value(password);
   static Insertable<UserSession> custom({
     Expression<String>? email,
     Expression<String>? password,
@@ -89,7 +94,7 @@ class UserSessionTableCompanion extends UpdateCompanion<UserSession> {
   }
 
   UserSessionTableCompanion copyWith(
-      {Value<String?>? email, Value<String?>? password, Value<int>? rowid}) {
+      {Value<String>? email, Value<String>? password, Value<int>? rowid}) {
     return UserSessionTableCompanion(
       email: email ?? this.email,
       password: password ?? this.password,
@@ -123,9 +128,9 @@ class UserSessionTableCompanion extends UpdateCompanion<UserSession> {
   }
 }
 
-abstract class _$AppStorage extends GeneratedDatabase {
-  _$AppStorage(QueryExecutor e) : super(e);
-  $AppStorageManager get managers => $AppStorageManager(this);
+abstract class _$LocalStorage extends GeneratedDatabase {
+  _$LocalStorage(QueryExecutor e) : super(e);
+  $LocalStorageManager get managers => $LocalStorageManager(this);
   late final $UserSessionTableTable userSessionTable =
       $UserSessionTableTable(this);
   @override
@@ -137,19 +142,19 @@ abstract class _$AppStorage extends GeneratedDatabase {
 
 typedef $$UserSessionTableTableCreateCompanionBuilder
     = UserSessionTableCompanion Function({
-  Value<String?> email,
-  Value<String?> password,
+  required String email,
+  required String password,
   Value<int> rowid,
 });
 typedef $$UserSessionTableTableUpdateCompanionBuilder
     = UserSessionTableCompanion Function({
-  Value<String?> email,
-  Value<String?> password,
+  Value<String> email,
+  Value<String> password,
   Value<int> rowid,
 });
 
 class $$UserSessionTableTableFilterComposer
-    extends FilterComposer<_$AppStorage, $UserSessionTableTable> {
+    extends FilterComposer<_$LocalStorage, $UserSessionTableTable> {
   $$UserSessionTableTableFilterComposer(super.$state);
   ColumnFilters<String> get email => $state.composableBuilder(
       column: $state.table.email,
@@ -163,7 +168,7 @@ class $$UserSessionTableTableFilterComposer
 }
 
 class $$UserSessionTableTableOrderingComposer
-    extends OrderingComposer<_$AppStorage, $UserSessionTableTable> {
+    extends OrderingComposer<_$LocalStorage, $UserSessionTableTable> {
   $$UserSessionTableTableOrderingComposer(super.$state);
   ColumnOrderings<String> get email => $state.composableBuilder(
       column: $state.table.email,
@@ -177,7 +182,7 @@ class $$UserSessionTableTableOrderingComposer
 }
 
 class $$UserSessionTableTableTableManager extends RootTableManager<
-    _$AppStorage,
+    _$LocalStorage,
     $UserSessionTableTable,
     UserSession,
     $$UserSessionTableTableFilterComposer,
@@ -186,12 +191,12 @@ class $$UserSessionTableTableTableManager extends RootTableManager<
     $$UserSessionTableTableUpdateCompanionBuilder,
     (
       UserSession,
-      BaseReferences<_$AppStorage, $UserSessionTableTable, UserSession>
+      BaseReferences<_$LocalStorage, $UserSessionTableTable, UserSession>
     ),
     UserSession,
     PrefetchHooks Function()> {
   $$UserSessionTableTableTableManager(
-      _$AppStorage db, $UserSessionTableTable table)
+      _$LocalStorage db, $UserSessionTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
@@ -200,8 +205,8 @@ class $$UserSessionTableTableTableManager extends RootTableManager<
           orderingComposer:
               $$UserSessionTableTableOrderingComposer(ComposerState(db, table)),
           updateCompanionCallback: ({
-            Value<String?> email = const Value.absent(),
-            Value<String?> password = const Value.absent(),
+            Value<String> email = const Value.absent(),
+            Value<String> password = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               UserSessionTableCompanion(
@@ -210,8 +215,8 @@ class $$UserSessionTableTableTableManager extends RootTableManager<
             rowid: rowid,
           ),
           createCompanionCallback: ({
-            Value<String?> email = const Value.absent(),
-            Value<String?> password = const Value.absent(),
+            required String email,
+            required String password,
             Value<int> rowid = const Value.absent(),
           }) =>
               UserSessionTableCompanion.insert(
@@ -227,7 +232,7 @@ class $$UserSessionTableTableTableManager extends RootTableManager<
 }
 
 typedef $$UserSessionTableTableProcessedTableManager = ProcessedTableManager<
-    _$AppStorage,
+    _$LocalStorage,
     $UserSessionTableTable,
     UserSession,
     $$UserSessionTableTableFilterComposer,
@@ -236,14 +241,14 @@ typedef $$UserSessionTableTableProcessedTableManager = ProcessedTableManager<
     $$UserSessionTableTableUpdateCompanionBuilder,
     (
       UserSession,
-      BaseReferences<_$AppStorage, $UserSessionTableTable, UserSession>
+      BaseReferences<_$LocalStorage, $UserSessionTableTable, UserSession>
     ),
     UserSession,
     PrefetchHooks Function()>;
 
-class $AppStorageManager {
-  final _$AppStorage _db;
-  $AppStorageManager(this._db);
+class $LocalStorageManager {
+  final _$LocalStorage _db;
+  $LocalStorageManager(this._db);
   $$UserSessionTableTableTableManager get userSessionTable =>
       $$UserSessionTableTableTableManager(_db, _db.userSessionTable);
 }

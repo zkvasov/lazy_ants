@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:lazy_ants/di/di.dart';
 
-import 'presentation/router/app_router.dart';
+import 'core/router/app_router.dart';
 
-void main() {
+Future<void> main() async {
+  await configDI();
+
   runApp(const MainApp());
 }
 

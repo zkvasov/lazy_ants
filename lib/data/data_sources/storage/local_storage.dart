@@ -1,18 +1,20 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:injectable/injectable.dart';
 
-import '../presentation/models/user_session.dart';
-import 'storage/tables/user_session_table.dart';
+import '../../../presentation/models/user_session.dart';
+import 'tables/user_session_table.dart';
 
-part 'app_storage.g.dart';
+part 'local_storage.g.dart';
 
+@singleton
 @DriftDatabase(
   tables: [
     UserSessionTable,
   ],
 )
-class AppStorage extends _$AppStorage {
-  AppStorage() : super(_openConnection());
+class LocalStorage extends _$LocalStorage {
+  LocalStorage() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
@@ -27,8 +29,6 @@ class AppStorage extends _$AppStorage {
   }
 
   static QueryExecutor _openConnection() {
-    // `driftDatabase` from `package:drift_flutter` stores the database in
-    // `getApplicationDocumentsDirectory()`.
     return driftDatabase(name: 'my_database');
   }
 }

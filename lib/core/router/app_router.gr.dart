@@ -26,7 +26,7 @@ class LoginRoute extends _i3.PageRouteInfo<void> {
   static _i3.PageInfo page = _i3.PageInfo(
     name,
     builder: (data) {
-      return const _i1.LoginPage();
+      return _i3.WrappedRoute(child: const _i1.LoginPage());
     },
   );
 }

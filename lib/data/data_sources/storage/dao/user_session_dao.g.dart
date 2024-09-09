@@ -3,7 +3,7 @@
 part of 'user_session_dao.dart';
 
 // ignore_for_file: type=lint
-mixin _$UserSessionDaoMixin on DatabaseAccessor<AppStorage> {
+mixin _$UserSessionDaoMixin on DatabaseAccessor<LocalStorage> {
   $UserSessionTableTable get userSessionTable =>
       attachedDatabase.userSessionTable;
 }

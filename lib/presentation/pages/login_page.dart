@@ -1,12 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:lazy_ants/data/app_storage.dart';
-import 'package:lazy_ants/data/storage/dao/user_session_dao.dart';
+import 'package:lazy_ants/core/router/app_router.dart';
+import 'package:lazy_ants/core/router/app_router.gr.dart';
+import 'package:lazy_ants/data/data_sources/storage/dao/user_session_dao.dart';
+import 'package:lazy_ants/data/data_sources/storage/local_storage.dart';
 import 'package:lazy_ants/presentation/models/user_session.dart';
-import 'package:lazy_ants/presentation/router/app_router.dart';
-import 'package:lazy_ants/presentation/router/app_router.gr.dart';
+
+import '../../di/di.dart';
+import '../bloc/login/login_page_cubit.dart';
 
 enum _LoginPageFields {
   email,
@@ -14,11 +18,19 @@ enum _LoginPageFields {
 }
 
 @RoutePage()
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget implements AutoRouteWrapper {
   const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => sl<LoginPageCubit>(),
+      child: this,
+    );
+  }
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -54,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text('Login'),
                 onPressed: () {
                   if (_fbKey.currentState?.saveAndValidate() ?? false) {
-                    final sessionDao = UserSessionDao(AppStorage());
+                    final sessionDao = UserSessionDao(LocalStorage());
 
                     final email =
                         _fbKey.currentState?.value[_LoginPageFields.email.name];
