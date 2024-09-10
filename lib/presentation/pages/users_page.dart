@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lazy_ants/core/router/app_router.dart';
 import 'package:lazy_ants/presentation/widgets/app_loader.dart';
 
 import '../../core/helpers/app_toasts.dart';
@@ -51,7 +52,21 @@ class UsersPage extends StatelessWidget implements AutoRouteWrapper {
             itemCount: state.users.length,
             itemBuilder: (context, index) {
               final user = state.users[index];
-              return Text(user.name);
+              return ListTile(
+                title: Text(user.name),
+                subtitle: Text(user.email),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 20,
+                ),
+                onTap: () => router.pushUserDetailsPage(user),
+                // onTap: () => Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => UserDetailPage(user: user),
+                //   ),
+                // ),
+              );
             },
           );
         },

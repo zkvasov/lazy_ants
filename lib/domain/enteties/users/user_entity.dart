@@ -1,17 +1,14 @@
 import 'package:equatable/equatable.dart';
-import 'package:lazy_ants/domain/enteties/users/address_entity.dart';
-
-import 'company_entity.dart';
 
 class UserEntity extends Equatable {
   final int id;
   final String name;
   final String username;
   final String email;
-  final AddressEntity address;
+  final String address;
   final String phone;
   final String website;
-  final CompanyEntity company;
+  final String company;
 
   const UserEntity({
     required this.id,

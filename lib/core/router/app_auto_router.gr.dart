@@ -9,6 +9,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
+import 'package:flutter/material.dart' as _i5;
+import 'package:lazy_ants/domain/enteties/users/user_entity.dart' as _i6;
 import 'package:lazy_ants/presentation/pages/login_page.dart' as _i1;
 import 'package:lazy_ants/presentation/pages/user_details_page.dart' as _i2;
 import 'package:lazy_ants/presentation/pages/users_page.dart' as _i3;
@@ -34,10 +36,17 @@ class LoginRoute extends _i4.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.UserDetailsPage]
-class UserDetailsRoute extends _i4.PageRouteInfo<void> {
-  const UserDetailsRoute({List<_i4.PageRouteInfo>? children})
-      : super(
+class UserDetailsRoute extends _i4.PageRouteInfo<UserDetailsRouteArgs> {
+  UserDetailsRoute({
+    _i5.Key? key,
+    required _i6.UserEntity user,
+    List<_i4.PageRouteInfo>? children,
+  }) : super(
           UserDetailsRoute.name,
+          args: UserDetailsRouteArgs(
+            key: key,
+            user: user,
+          ),
           initialChildren: children,
         );
 
@@ -46,9 +55,29 @@ class UserDetailsRoute extends _i4.PageRouteInfo<void> {
   static _i4.PageInfo page = _i4.PageInfo(
     name,
     builder: (data) {
-      return const _i2.UserDetailsPage();
+      final args = data.argsAs<UserDetailsRouteArgs>();
+      return _i2.UserDetailsPage(
+        key: args.key,
+        user: args.user,
+      );
     },
   );
+}
+
+class UserDetailsRouteArgs {
+  const UserDetailsRouteArgs({
+    this.key,
+    required this.user,
+  });
+
+  final _i5.Key? key;
+
+  final _i6.UserEntity user;
+
+  @override
+  String toString() {
+    return 'UserDetailsRouteArgs{key: $key, user: $user}';
+  }
 }
 
 /// generated route for
