@@ -56,10 +56,10 @@ _i174.GetIt $configDI(
       () => _i267.GetUserSessionUseCase(gh<_i800.AuthRepository>()));
   gh.singleton<_i877.AppRouter>(
       () => _i877.AppRouter(gh<_i522.AppAutoRouter>()));
-  gh.lazySingleton<_i657.UserSessionDao>(
-      () => _i657.UserSessionDao(gh<_i1022.LocalStorage>()));
   gh.lazySingleton<_i867.UsersDao>(
       () => _i867.UsersDao(gh<_i1022.LocalStorage>()));
+  gh.lazySingleton<_i657.UserSessionDao>(
+      () => _i657.UserSessionDao(gh<_i1022.LocalStorage>()));
   gh.factory<_i708.LoginPageCubit>(() => _i708.LoginPageCubit(
         gh<_i267.GetUserSessionUseCase>(),
         gh<_i132.LoginUseCase>(),

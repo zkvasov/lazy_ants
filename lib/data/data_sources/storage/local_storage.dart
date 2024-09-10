@@ -38,12 +38,10 @@ class LocalStorage extends _$LocalStorage {
   @override
   MigrationStrategy get migration {
     return MigrationStrategy(
-      beforeOpen: (details) async {
-        await customStatement('PRAGMA foreign_keys = ON');
-      },
       onCreate: (m) async {
         await m.createAll();
       },
+      onUpgrade: (m, from, to) async {},
     );
   }
 }
@@ -53,6 +51,6 @@ LazyDatabase _openConnection() {
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(p.join(dbFolder.path, 'db.sqlite'));
 
-    return NativeDatabase(file);
+    return NativeDatabase.createInBackground(file);
   });
 }

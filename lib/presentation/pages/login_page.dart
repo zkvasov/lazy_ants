@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:lazy_ants/data/data_sources/storage/dao/user_session_dao.dart';
-import 'package:lazy_ants/data/data_sources/storage/local_storage.dart';
-import 'package:lazy_ants/presentation/models/user_session.dart';
 
 import '../../core/helpers/app_toasts.dart';
 import '../../core/router/app_router.dart';
@@ -100,22 +97,12 @@ class _LoginPageState extends State<LoginPage> {
           child: const Text('Login'),
           onPressed: () {
             if (_fbKey.currentState?.saveAndValidate() ?? false) {
-              final sessionDao = UserSessionDao(LocalStorage());
-
               final email =
                   _fbKey.currentState?.value[_LoginPageFields.email.name];
               final password =
                   _fbKey.currentState?.value[_LoginPageFields.password.name];
 
               _cubit.login(email: email, password: password);
-              sessionDao
-                  .insertSession(UserSession(
-                email: email,
-                password: password,
-              ))
-                  .then((_) {
-                router.replaceToUsersPage();
-              });
             }
           },
         )
