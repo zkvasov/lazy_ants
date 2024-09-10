@@ -22,8 +22,11 @@ import '../domain/repositories/auth_repository.dart' as _i800;
 import '../domain/repositories/users_repository.dart' as _i56;
 import '../domain/use_cases/auth/get_user_session_use_case.dart' as _i267;
 import '../domain/use_cases/auth/login_use_case.dart' as _i132;
+import '../domain/use_cases/users/get_user_details_use_case.dart' as _i670;
 import '../domain/use_cases/users/get_users_use_case.dart' as _i868;
 import '../presentation/bloc/login_page/login_page_cubit.dart' as _i86;
+import '../presentation/bloc/user_details_page/user_details_page_cubit.dart'
+    as _i909;
 import '../presentation/bloc/users_page/users_page_cubit.dart' as _i865;
 import '../presentation/core/router/app_auto_router.dart' as _i242;
 import '../presentation/core/router/app_router.dart' as _i223;
@@ -58,6 +61,8 @@ _i174.GetIt $configDI(
   gh.lazySingleton<_i290.ApiLogInterceptor>(() => _i290.ApiLogInterceptor());
   gh.lazySingleton<_i868.GetUsersUseCase>(
       () => _i868.GetUsersUseCase(gh<_i56.UsersRepository>()));
+  gh.lazySingleton<_i670.GetUserDetailsUseCase>(
+      () => _i670.GetUserDetailsUseCase(gh<_i56.UsersRepository>()));
   gh.singleton<_i30.ApiClient>(() => _i30.ApiClient(gh<_i361.Dio>()));
   gh.lazySingleton<_i132.LoginUseCase>(
       () => _i132.LoginUseCase(gh<_i800.AuthRepository>()));
@@ -73,6 +78,14 @@ _i174.GetIt $configDI(
       ));
   gh.factory<_i865.UsersPageCubit>(
       () => _i865.UsersPageCubit(gh<_i868.GetUsersUseCase>()));
+  gh.factoryParam<_i909.UserDetailsPageCubit, int, dynamic>((
+    _userId,
+    _,
+  ) =>
+      _i909.UserDetailsPageCubit(
+        gh<_i670.GetUserDetailsUseCase>(),
+        _userId,
+      ));
   gh.singleton<_i223.AppRouter>(
       () => _i223.AppRouter(gh<_i242.AppAutoRouter>()));
   return getIt;

@@ -19,17 +19,25 @@ class UsersRepositoryImpl extends BaseRepository implements UsersRepository {
   Future<List<User>> getUsers() {
     return makeErrorParsedCall(() async {
       List<UserDto> users = await _usersDao.getAllUsers();
-      // if (users.isEmpty) {
-      users = await _apiClient.getUsers();
-      await _usersDao.insertUsers(users);
-      // }
-      return users.map(_UserEntityExt.fromUser).toList();
+      if (users.isEmpty) {
+        users = await _apiClient.getUsers();
+        await _usersDao.insertUsers(users);
+      }
+      return users.map(_UserEntityExt.fromUserDto).toList();
+    });
+  }
+
+  @override
+  Future<User> getUserDetails(int userId) {
+    return makeErrorParsedCall(() async {
+      final user = await _usersDao.getUserById(userId);
+      return _UserEntityExt.fromUserDto(user);
     });
   }
 }
 
 extension _UserEntityExt on User {
-  static User fromUser(UserDto user) {
+  static User fromUserDto(UserDto user) {
     return User(
       id: user.id,
       name: user.name,

@@ -10,7 +10,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i5;
-import 'package:lazy_ants/domain/enteties/users/user.dart' as _i6;
 import 'package:lazy_ants/presentation/pages/login_page.dart' as _i1;
 import 'package:lazy_ants/presentation/pages/user_details_page.dart' as _i2;
 import 'package:lazy_ants/presentation/pages/users_page.dart' as _i3;
@@ -39,14 +38,15 @@ class LoginRoute extends _i4.PageRouteInfo<void> {
 class UserDetailsRoute extends _i4.PageRouteInfo<UserDetailsRouteArgs> {
   UserDetailsRoute({
     _i5.Key? key,
-    required _i6.User user,
+    required int userId,
     List<_i4.PageRouteInfo>? children,
   }) : super(
           UserDetailsRoute.name,
           args: UserDetailsRouteArgs(
             key: key,
-            user: user,
+            userId: userId,
           ),
+          rawPathParams: {'id': userId},
           initialChildren: children,
         );
 
@@ -55,11 +55,14 @@ class UserDetailsRoute extends _i4.PageRouteInfo<UserDetailsRouteArgs> {
   static _i4.PageInfo page = _i4.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<UserDetailsRouteArgs>();
-      return _i2.UserDetailsPage(
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<UserDetailsRouteArgs>(
+          orElse: () => UserDetailsRouteArgs(userId: pathParams.getInt('id')));
+      return _i4.WrappedRoute(
+          child: _i2.UserDetailsPage(
         key: args.key,
-        user: args.user,
-      );
+        userId: args.userId,
+      ));
     },
   );
 }
@@ -67,16 +70,16 @@ class UserDetailsRoute extends _i4.PageRouteInfo<UserDetailsRouteArgs> {
 class UserDetailsRouteArgs {
   const UserDetailsRouteArgs({
     this.key,
-    required this.user,
+    required this.userId,
   });
 
   final _i5.Key? key;
 
-  final _i6.User user;
+  final int userId;
 
   @override
   String toString() {
-    return 'UserDetailsRouteArgs{key: $key, user: $user}';
+    return 'UserDetailsRouteArgs{key: $key, userId: $userId}';
   }
 }
 

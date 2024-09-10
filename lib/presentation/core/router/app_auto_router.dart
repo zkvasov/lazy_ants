@@ -33,7 +33,7 @@ class AppAutoRouter extends RootStackRouter {
         ),
         _AppRoute(
           page: UserDetailsRoute.page,
-          path: '/user-details',
+          path: '/users/:id',
           transitionsBuilder: TransitionsBuilders.slideLeft,
         ),
       ];

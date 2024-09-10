@@ -59,13 +59,7 @@ class UsersPage extends StatelessWidget implements AutoRouteWrapper {
                   Icons.arrow_forward_ios,
                   size: 20,
                 ),
-                onTap: () => router.pushUserDetailsPage(user),
-                // onTap: () => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => UserDetailPage(user: user),
-                //   ),
-                // ),
+                onTap: () => router.pushUserDetailsPage(user.id),
               );
             },
           );

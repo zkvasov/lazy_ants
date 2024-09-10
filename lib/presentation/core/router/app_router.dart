@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 import 'package:lazy_ants/di/di.dart';
-import 'package:lazy_ants/domain/enteties/users/user.dart';
 
 import 'app_auto_router.dart';
 import 'app_auto_router.gr.dart';
@@ -18,7 +17,7 @@ class AppRouter extends BaseRouter {
     await replace(const UsersRoute());
   }
 
-  Future<void> pushUserDetailsPage(User user) async {
-    await push(UserDetailsRoute(user: user));
+  Future<void> pushUserDetailsPage(int userId) async {
+    await push(UserDetailsRoute(userId: userId));
   }
 }

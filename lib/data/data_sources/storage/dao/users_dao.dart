@@ -61,6 +61,16 @@ class UsersDao extends DatabaseAccessor<LocalStorage> with _$UsersDaoMixin {
     final views = await indicatorsView.select().get();
     return views.map(_UserExt.fromIndicatorsViewData).toList();
   }
+
+  Future<UserDto> getUserById(int userId) async {
+    final userData = await (indicatorsView.select()
+          ..where(
+            (tbl) => tbl.id.equals(userId),
+          ))
+        .getSingle();
+
+    return _UserExt.fromIndicatorsViewData(userData);
+  }
 }
 
 extension on GeoDto {
