@@ -1,16 +1,16 @@
 import 'package:injectable/injectable.dart';
 
-import '../../../core/api/base_api_client.dart';
-import '../models/users/user.dart';
+import '../../core/api/base_api_client.dart';
+import '../models/users/user_dto.dart';
 
 @singleton
 class ApiClient extends BaseApiClient {
   ApiClient(super.dio);
 
-  Future<List<User>> getUsers() async {
-    return await getList<User>(
+  Future<List<UserDto>> getUsers() async {
+    return await getList<UserDto>(
       path: '/users',
-      converter: User.fromJson,
+      converter: UserDto.fromJson,
     );
   }
 }

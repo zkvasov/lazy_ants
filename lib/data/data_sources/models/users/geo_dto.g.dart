@@ -1,17 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'geo.dart';
+part of 'geo_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Geo _$GeoFromJson(Map<String, dynamic> json) => Geo(
+GeoDto _$GeoDtoFromJson(Map<String, dynamic> json) => GeoDto(
       lat: json['lat'] as String,
       lng: json['lng'] as String,
     );
 
-Map<String, dynamic> _$GeoToJson(Geo instance) => <String, dynamic>{
+Map<String, dynamic> _$GeoDtoToJson(GeoDto instance) => <String, dynamic>{
       'lat': instance.lat,
       'lng': instance.lng,
     };

@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lazy_ants/core/router/app_router.dart';
+import 'package:lazy_ants/presentation/core/router/app_router.dart';
 import 'package:lazy_ants/presentation/widgets/app_loader.dart';
 
-import '../../core/helpers/app_toasts.dart';
 import '../../di/di.dart';
 import '../bloc/users_page/users_page_cubit.dart';
+import '../core/helpers/app_toasts.dart';
 
 @RoutePage()
 class UsersPage extends StatelessWidget implements AutoRouteWrapper {

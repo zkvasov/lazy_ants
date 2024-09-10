@@ -10,7 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i5;
-import 'package:lazy_ants/domain/enteties/users/user_entity.dart' as _i6;
+import 'package:lazy_ants/domain/enteties/users/user.dart' as _i6;
 import 'package:lazy_ants/presentation/pages/login_page.dart' as _i1;
 import 'package:lazy_ants/presentation/pages/user_details_page.dart' as _i2;
 import 'package:lazy_ants/presentation/pages/users_page.dart' as _i3;
@@ -39,7 +39,7 @@ class LoginRoute extends _i4.PageRouteInfo<void> {
 class UserDetailsRoute extends _i4.PageRouteInfo<UserDetailsRouteArgs> {
   UserDetailsRoute({
     _i5.Key? key,
-    required _i6.UserEntity user,
+    required _i6.User user,
     List<_i4.PageRouteInfo>? children,
   }) : super(
           UserDetailsRoute.name,
@@ -72,7 +72,7 @@ class UserDetailsRouteArgs {
 
   final _i5.Key? key;
 
-  final _i6.UserEntity user;
+  final _i6.User user;
 
   @override
   String toString() {

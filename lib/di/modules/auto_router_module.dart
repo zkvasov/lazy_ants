@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../core/router/app_auto_router.dart';
+import '../../presentation/core/router/app_auto_router.dart';
 
 @module
 abstract class AppRouterModule {

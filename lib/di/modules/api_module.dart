@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../core/api/api_constants.dart';
+import '../../data/core/api/api_constants.dart';
 
 @module
 abstract class ApiModule {

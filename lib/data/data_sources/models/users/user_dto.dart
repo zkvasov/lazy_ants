@@ -1,22 +1,22 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'address.dart';
-import 'company.dart';
+import 'address_dto.dart';
+import 'company_dto.dart';
 
-part 'user.g.dart';
+part 'user_dto.g.dart';
 
 @JsonSerializable()
-class User {
+class UserDto {
   final int id;
   final String name;
   final String username;
   final String email;
-  final Address address;
+  final AddressDto address;
   final String phone;
   final String website;
-  final Company company;
+  final CompanyDto company;
 
-  User({
+  UserDto({
     required this.id,
     required this.name,
     required this.username,
@@ -27,5 +27,6 @@ class User {
     required this.company,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory UserDto.fromJson(Map<String, dynamic> json) =>
+      _$UserDtoFromJson(json);
 }

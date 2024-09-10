@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class UserEntity extends Equatable {
+class User extends Equatable {
   final int id;
   final String name;
   final String username;
@@ -10,7 +10,7 @@ class UserEntity extends Equatable {
   final String website;
   final String company;
 
-  const UserEntity({
+  const User({
     required this.id,
     required this.name,
     required this.username,

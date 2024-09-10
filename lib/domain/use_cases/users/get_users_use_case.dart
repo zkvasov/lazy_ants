@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:lazy_ants/domain/enteties/users/user_entity.dart';
+import 'package:lazy_ants/domain/enteties/users/user.dart';
 
 import '../../repositories/users_repository.dart';
 
@@ -9,7 +9,7 @@ class GetUsersUseCase {
 
   GetUsersUseCase(this._usersRepository);
 
-  Future<List<UserEntity>> call() {
+  Future<List<User>> call() {
     return _usersRepository.getUsers();
   }
 }

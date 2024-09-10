@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-import '../../core/helpers/app_toasts.dart';
-import '../../core/router/app_router.dart';
 import '../../di/di.dart';
 import '../bloc/login_page/login_page_cubit.dart';
+import '../core/helpers/app_toasts.dart';
+import '../core/router/app_router.dart';
 import '../widgets/app_loader.dart';
 
 enum _LoginPageFields {

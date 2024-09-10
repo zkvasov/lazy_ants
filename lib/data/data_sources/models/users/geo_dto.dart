@@ -1,16 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'geo.g.dart';
+part 'geo_dto.g.dart';
 
 @JsonSerializable()
-class Geo {
+class GeoDto {
   final String lat;
   final String lng;
 
-  Geo({
+  GeoDto({
     required this.lat,
     required this.lng,
   });
 
-  factory Geo.fromJson(Map<String, dynamic> json) => _$GeoFromJson(json);
+  factory GeoDto.fromJson(Map<String, dynamic> json) => _$GeoDtoFromJson(json);
 }

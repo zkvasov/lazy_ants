@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lazy_ants/di/di.dart';
 
-import 'core/router/app_auto_router.dart';
+import 'presentation/core/router/app_auto_router.dart';
 
 Future<void> main() async {
   await configDI();

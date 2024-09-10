@@ -1,10 +1,10 @@
 import 'package:lazy_ants/data/data_sources/api/api_client.dart';
 import 'package:lazy_ants/data/data_sources/storage/dao/users_dao.dart';
-import 'package:lazy_ants/domain/enteties/users/user_entity.dart';
+import 'package:lazy_ants/domain/enteties/users/user.dart';
 import 'package:lazy_ants/domain/repositories/users_repository.dart';
 
-import '../../core/repository/base_repository.dart';
-import '../data_sources/models/users/user.dart';
+import '../core/repository/base_repository.dart';
+import '../data_sources/models/users/user_dto.dart';
 
 class UsersRepositoryImpl extends BaseRepository implements UsersRepository {
   final UsersDao _usersDao;
@@ -16,9 +16,9 @@ class UsersRepositoryImpl extends BaseRepository implements UsersRepository {
   );
 
   @override
-  Future<List<UserEntity>> getUsers() {
+  Future<List<User>> getUsers() {
     return makeErrorParsedCall(() async {
-      List<User> users = await _usersDao.getAllUsers();
+      List<UserDto> users = await _usersDao.getAllUsers();
       if (users.isEmpty) {
         users = await _apiClient.getUsers();
         await _usersDao.insertUsers(users);
@@ -28,9 +28,9 @@ class UsersRepositoryImpl extends BaseRepository implements UsersRepository {
   }
 }
 
-extension _UserEntityExt on UserEntity {
-  static UserEntity fromUser(User user) {
-    return UserEntity(
+extension _UserEntityExt on User {
+  static User fromUser(UserDto user) {
+    return User(
       id: user.id,
       name: user.name,
       username: user.username,

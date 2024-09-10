@@ -10,7 +10,7 @@ enum UsersPageStatus {
 class UsersPageState extends Equatable {
   final UsersPageStatus status;
   final String errorMessage;
-  final List<UserEntity> users;
+  final List<User> users;
 
   const UsersPageState({
     required this.status,
@@ -28,7 +28,7 @@ class UsersPageState extends Equatable {
   UsersPageState copyWith({
     required UsersPageStatus status,
     String? errorMessage,
-    List<UserEntity>? users,
+    List<User>? users,
   }) {
     return UsersPageState(
       status: status,

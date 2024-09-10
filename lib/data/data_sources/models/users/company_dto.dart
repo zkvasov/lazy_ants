@@ -1,19 +1,19 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'company.g.dart';
+part 'company_dto.g.dart';
 
 @JsonSerializable()
-class Company {
+class CompanyDto {
   final String name;
   final String catchPhrase;
   final String bs;
 
-  Company({
+  CompanyDto({
     required this.name,
     required this.catchPhrase,
     required this.bs,
   });
 
-  factory Company.fromJson(Map<String, dynamic> json) =>
-      _$CompanyFromJson(json);
+  factory CompanyDto.fromJson(Map<String, dynamic> json) =>
+      _$CompanyDtoFromJson(json);
 }

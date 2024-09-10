@@ -1,5 +1,5 @@
-import 'package:lazy_ants/domain/enteties/users/user_entity.dart';
+import 'package:lazy_ants/domain/enteties/users/user.dart';
 
 abstract class UsersRepository {
-  Future<List<UserEntity>> getUsers();
+  Future<List<User>> getUsers();
 }

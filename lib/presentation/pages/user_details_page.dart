@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:lazy_ants/domain/enteties/users/user_entity.dart';
+import 'package:lazy_ants/domain/enteties/users/user.dart';
 
 import '../widgets/cards/info_card.dart';
 
 @RoutePage()
 class UserDetailsPage extends StatelessWidget {
-  final UserEntity user;
+  final User user;
 
   const UserDetailsPage({super.key, required this.user});
 
