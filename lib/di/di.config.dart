@@ -13,6 +13,7 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:logger/logger.dart' as _i974;
 
+import '../data/core/api/interceptors/api_log_interceptor.dart' as _i290;
 import '../data/data_sources/api/api_client.dart' as _i30;
 import '../data/data_sources/storage/dao/user_session_dao.dart' as _i657;
 import '../data/data_sources/storage/dao/users_dao.dart' as _i867;
@@ -54,6 +55,7 @@ _i174.GetIt $configDI(
   gh.lazySingleton<_i56.UsersRepository>(
       () => repositoriesModule.usersRepositoryImpl());
   gh.lazySingleton<_i361.Dio>(() => apiModule.apiDio());
+  gh.lazySingleton<_i290.ApiLogInterceptor>(() => _i290.ApiLogInterceptor());
   gh.lazySingleton<_i868.GetUsersUseCase>(
       () => _i868.GetUsersUseCase(gh<_i56.UsersRepository>()));
   gh.singleton<_i30.ApiClient>(() => _i30.ApiClient(gh<_i361.Dio>()));

@@ -36,6 +36,16 @@ class _LoginPageState extends State<LoginPage> {
 
   LoginPageCubit get _cubit => context.read();
 
+  void _onLoginTap() {
+    if (_fbKey.currentState?.saveAndValidate() ?? false) {
+      final email = _fbKey.currentState?.value[_LoginPageFields.email.name];
+      final password =
+          _fbKey.currentState?.value[_LoginPageFields.password.name];
+
+      _cubit.login(email: email, password: password);
+    }
+  }
+
   void _onStateChanged(
     BuildContext context,
     LoginPageState state,
@@ -86,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
             label: Text('Login'),
           ),
         ),
+        const SizedBox(height: 16),
         FormBuilderTextField(
           name: _LoginPageFields.password.name,
           validator: FormBuilderValidators.required(),
@@ -93,18 +104,10 @@ class _LoginPageState extends State<LoginPage> {
             label: Text('Password'),
           ),
         ),
+        const SizedBox(height: 16),
         ElevatedButton(
+          onPressed: _onLoginTap,
           child: const Text('Login'),
-          onPressed: () {
-            if (_fbKey.currentState?.saveAndValidate() ?? false) {
-              final email =
-                  _fbKey.currentState?.value[_LoginPageFields.email.name];
-              final password =
-                  _fbKey.currentState?.value[_LoginPageFields.password.name];
-
-              _cubit.login(email: email, password: password);
-            }
-          },
         )
       ],
     );

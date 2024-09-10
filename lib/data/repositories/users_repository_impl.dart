@@ -19,10 +19,10 @@ class UsersRepositoryImpl extends BaseRepository implements UsersRepository {
   Future<List<User>> getUsers() {
     return makeErrorParsedCall(() async {
       List<UserDto> users = await _usersDao.getAllUsers();
-      if (users.isEmpty) {
-        users = await _apiClient.getUsers();
-        await _usersDao.insertUsers(users);
-      }
+      // if (users.isEmpty) {
+      users = await _apiClient.getUsers();
+      await _usersDao.insertUsers(users);
+      // }
       return users.map(_UserEntityExt.fromUser).toList();
     });
   }
