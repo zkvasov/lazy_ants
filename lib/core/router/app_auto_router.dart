@@ -1,32 +1,40 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
 import 'app_auto_router.gr.dart';
 
-// class _AppRoute extends AutoRoute {
-//  _AppRoute (
-//   {
-//     required super.page,
-//     required super.path,
+const _durationInMilliseconds = 300;
 
-//   }
-// ) : super();
-// }
+class _AppRoute extends CustomRoute {
+  _AppRoute({
+    required super.page,
+    required super.path,
+    RouteTransitionsBuilder transitionsBuilder = TransitionsBuilders.fadeIn,
+    super.children,
+  }) : super(
+          transitionsBuilder: transitionsBuilder,
+          durationInMilliseconds: _durationInMilliseconds,
+          reverseDurationInMilliseconds: _durationInMilliseconds,
+        );
+}
 
 @AutoRouterConfig()
 class AppAutoRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(
+        _AppRoute(
           page: LoginRoute.page,
           path: '/',
         ),
-        AutoRoute(
+        _AppRoute(
           page: UsersRoute.page,
           path: '/users',
+          transitionsBuilder: TransitionsBuilders.slideRight,
         ),
-        AutoRoute(
+        _AppRoute(
           page: UserDetailsRoute.page,
           path: '/user-details',
+          transitionsBuilder: TransitionsBuilders.slideLeft,
         ),
       ];
 }
