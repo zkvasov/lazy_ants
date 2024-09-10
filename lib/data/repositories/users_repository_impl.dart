@@ -43,7 +43,8 @@ extension _UserEntityExt on User {
       name: user.name,
       username: user.username,
       email: user.email,
-      address: '${user.address.street}, ${user.address.city}',
+      address:
+          '${user.address.street}, ${user.address.suite}, ${user.address.city}',
       phone: user.phone,
       website: user.website,
       company: user.company.name,
