@@ -59,7 +59,7 @@ class UsersDao extends DatabaseAccessor<LocalStorage> with _$UsersDaoMixin {
 
   Future<List<User>> getAllUsers() async {
     final views = await indicatorsView.select().get();
-    return views.map(UserExt.fromIndicatorsViewData).toList();
+    return views.map(_UserExt.fromIndicatorsViewData).toList();
   }
 }
 
@@ -91,7 +91,7 @@ extension on Company {
   }
 }
 
-extension UserExt on User {
+extension _UserExt on User {
   static User fromIndicatorsViewData(IndicatorsViewData view) {
     return User(
       id: view.id,

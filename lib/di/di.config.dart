@@ -20,9 +20,12 @@ import '../data/data_sources/storage/dao/user_session_dao.dart' as _i657;
 import '../data/data_sources/storage/dao/users_dao.dart' as _i867;
 import '../data/data_sources/storage/local_storage.dart' as _i1022;
 import '../domain/repositories/auth_repository.dart' as _i800;
+import '../domain/repositories/users_repository.dart' as _i56;
 import '../domain/use_cases/auth/get_user_session_use_case.dart' as _i267;
 import '../domain/use_cases/auth/login_use_case.dart' as _i132;
-import '../presentation/bloc/login/login_page_cubit.dart' as _i708;
+import '../domain/use_cases/users/get_users_use_case.dart' as _i868;
+import '../presentation/bloc/login_page/login_page_cubit.dart' as _i86;
+import '../presentation/bloc/users_page/users_page_cubit.dart' as _i865;
 import 'modules/api_module.dart' as _i145;
 import 'modules/auto_router_module.dart' as _i448;
 import 'modules/logger_module.dart' as _i205;
@@ -48,7 +51,11 @@ _i174.GetIt $configDI(
   gh.singleton<_i1022.LocalStorage>(() => _i1022.LocalStorage());
   gh.lazySingleton<_i800.AuthRepository>(
       () => repositoriesModule.chatLocalDataSourceImpl());
+  gh.lazySingleton<_i56.UsersRepository>(
+      () => repositoriesModule.usersRepositoryImpl());
   gh.lazySingleton<_i361.Dio>(() => apiModule.apiDio());
+  gh.lazySingleton<_i868.GetUsersUseCase>(
+      () => _i868.GetUsersUseCase(gh<_i56.UsersRepository>()));
   gh.singleton<_i30.ApiClient>(() => _i30.ApiClient(gh<_i361.Dio>()));
   gh.lazySingleton<_i132.LoginUseCase>(
       () => _i132.LoginUseCase(gh<_i800.AuthRepository>()));
@@ -60,10 +67,12 @@ _i174.GetIt $configDI(
       () => _i867.UsersDao(gh<_i1022.LocalStorage>()));
   gh.lazySingleton<_i657.UserSessionDao>(
       () => _i657.UserSessionDao(gh<_i1022.LocalStorage>()));
-  gh.factory<_i708.LoginPageCubit>(() => _i708.LoginPageCubit(
+  gh.factory<_i86.LoginPageCubit>(() => _i86.LoginPageCubit(
         gh<_i267.GetUserSessionUseCase>(),
         gh<_i132.LoginUseCase>(),
       ));
+  gh.factory<_i865.UsersPageCubit>(
+      () => _i865.UsersPageCubit(gh<_i868.GetUsersUseCase>()));
   return getIt;
 }
 

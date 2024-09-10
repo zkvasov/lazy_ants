@@ -7,7 +7,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../core/helpers/app_toasts.dart';
 import '../../core/router/app_router.dart';
 import '../../di/di.dart';
-import '../bloc/login/login_page_cubit.dart';
+import '../bloc/login_page/login_page_cubit.dart';
 import '../widgets/app_loader.dart';
 
 enum _LoginPageFields {
