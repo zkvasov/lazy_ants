@@ -15,4 +15,11 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
       return _userSessionDao.getSession();
     });
   }
+
+  @override
+  Future<void> login(UserSession session) {
+    return makeErrorParsedCall(() {
+      return _userSessionDao.insertSession(session);
+    });
+  }
 }

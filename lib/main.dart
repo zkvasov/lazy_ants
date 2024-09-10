@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lazy_ants/di/di.dart';
 
-import 'core/router/app_router.dart';
+import 'core/router/app_auto_router.dart';
 
 Future<void> main() async {
   await configDI();
@@ -19,13 +19,12 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  // TODO: di
-  final _appRouter = AppRouter();
-
   @override
   Widget build(BuildContext context) {
+    final appRouter = sl<AppAutoRouter>();
+
     return MaterialApp.router(
-      routerConfig: _appRouter.config(),
+      routerConfig: appRouter.config(),
     );
   }
 }

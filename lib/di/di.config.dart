@@ -13,12 +13,15 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:logger/logger.dart' as _i974;
 
+import '../core/router/app_auto_router.dart' as _i522;
 import '../core/router/app_router.dart' as _i877;
-import '../data/data_sources/api_client.dart' as _i550;
+import '../data/data_sources/api/api_client.dart' as _i30;
 import '../data/data_sources/storage/dao/user_session_dao.dart' as _i657;
+import '../data/data_sources/storage/dao/users_dao.dart' as _i867;
 import '../data/data_sources/storage/local_storage.dart' as _i1022;
 import '../domain/repositories/auth_repository.dart' as _i800;
 import '../domain/use_cases/auth/get_user_session_use_case.dart' as _i267;
+import '../domain/use_cases/auth/login_use_case.dart' as _i132;
 import '../presentation/bloc/login/login_page_cubit.dart' as _i708;
 import 'modules/api_module.dart' as _i145;
 import 'modules/auto_router_module.dart' as _i448;
@@ -38,21 +41,29 @@ _i174.GetIt $configDI(
   );
   final appRouterModule = _$AppRouterModule();
   final loggerModule = _$LoggerModule();
-  final apiModule = _$ApiModule();
   final repositoriesModule = _$RepositoriesModule();
-  gh.singleton<_i877.AppRouter>(() => appRouterModule.appRouter());
+  final apiModule = _$ApiModule();
+  gh.singleton<_i522.AppAutoRouter>(() => appRouterModule.appAutoRouter());
   gh.singleton<_i974.Logger>(() => loggerModule.logger());
   gh.singleton<_i1022.LocalStorage>(() => _i1022.LocalStorage());
-  gh.lazySingleton<_i361.Dio>(() => apiModule.apiDio());
   gh.lazySingleton<_i800.AuthRepository>(
       () => repositoriesModule.chatLocalDataSourceImpl());
-  gh.singleton<_i550.ApiClient>(() => _i550.ApiClient(gh<_i361.Dio>()));
+  gh.lazySingleton<_i361.Dio>(() => apiModule.apiDio());
+  gh.singleton<_i30.ApiClient>(() => _i30.ApiClient(gh<_i361.Dio>()));
+  gh.lazySingleton<_i132.LoginUseCase>(
+      () => _i132.LoginUseCase(gh<_i800.AuthRepository>()));
   gh.lazySingleton<_i267.GetUserSessionUseCase>(
       () => _i267.GetUserSessionUseCase(gh<_i800.AuthRepository>()));
+  gh.singleton<_i877.AppRouter>(
+      () => _i877.AppRouter(gh<_i522.AppAutoRouter>()));
   gh.lazySingleton<_i657.UserSessionDao>(
       () => _i657.UserSessionDao(gh<_i1022.LocalStorage>()));
-  gh.factory<_i708.LoginPageCubit>(
-      () => _i708.LoginPageCubit(gh<_i267.GetUserSessionUseCase>()));
+  gh.lazySingleton<_i867.UsersDao>(
+      () => _i867.UsersDao(gh<_i1022.LocalStorage>()));
+  gh.factory<_i708.LoginPageCubit>(() => _i708.LoginPageCubit(
+        gh<_i267.GetUserSessionUseCase>(),
+        gh<_i132.LoginUseCase>(),
+      ));
   return getIt;
 }
 
@@ -60,6 +71,6 @@ class _$AppRouterModule extends _i448.AppRouterModule {}
 
 class _$LoggerModule extends _i205.LoggerModule {}
 
-class _$ApiModule extends _i145.ApiModule {}
-
 class _$RepositoriesModule extends _i885.RepositoriesModule {}
+
+class _$ApiModule extends _i145.ApiModule {}

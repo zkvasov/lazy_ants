@@ -1,9 +1,12 @@
 import 'package:drift/drift.dart';
 
-import '../../../../presentation/models/user_session.dart';
+import '../../../../../presentation/models/user_session.dart';
 
 @UseRowClass(UserSession)
 class UserSessionTable extends Table {
   TextColumn get email => text()();
   TextColumn get password => text()();
+
+  @override
+  Set<Column<Object>>? get primaryKey => {email};
 }

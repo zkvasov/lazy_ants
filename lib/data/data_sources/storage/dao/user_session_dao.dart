@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lazy_ants/data/data_sources/storage/local_storage.dart';
-import 'package:lazy_ants/data/data_sources/storage/tables/user_session_table.dart';
+import 'package:lazy_ants/data/data_sources/storage/tables/auth/user_session_table.dart';
 
 import '../../../../presentation/models/user_session.dart';
 
@@ -14,12 +14,11 @@ class UserSessionDao extends DatabaseAccessor<LocalStorage>
   UserSessionDao(super.db);
 
   Future<void> insertSession(UserSession session) async {
-    batch((batch) {
-      userSessionTable.insertOnConflictUpdate(UserSessionTableCompanion.insert(
-        email: session.email,
-        password: session.password,
-      ));
-    });
+    await userSessionTable.deleteAll();
+    userSessionTable.insertOnConflictUpdate(UserSessionTableCompanion.insert(
+      email: session.email,
+      password: session.password,
+    ));
   }
 
   Future<UserSession?> getSession() {

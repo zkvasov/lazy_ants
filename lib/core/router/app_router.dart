@@ -1,28 +1,19 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:injectable/injectable.dart';
+import 'package:lazy_ants/di/di.dart';
 
-import 'app_router.gr.dart';
+import 'app_auto_router.dart';
+import 'app_auto_router.gr.dart';
+import 'base_router.dart';
 
-// class _AppRoute extends AutoRoute {
-//  _AppRoute (
-//   {
-//     required super.page,
-//     required super.path,
+/// Getter (NOT a final variable) to allow Hot Reloading
+/// with new routes without restart
+AppRouter get router => sl<AppRouter>();
 
-//   }
-// ) : super();
-// }
+@singleton
+class AppRouter extends BaseRouter {
+  AppRouter(AppAutoRouter super.router);
 
-@AutoRouterConfig()
-class AppRouter extends RootStackRouter {
-  @override
-  List<AutoRoute> get routes => [
-        AutoRoute(
-          page: LoginRoute.page,
-          path: '/',
-        ),
-        AutoRoute(
-          page: UsersRoute.page,
-          path: '/users',
-        ),
-      ];
+  Future<void> replaceToUsersPage() async {
+    await replace(const UsersRoute());
+  }
 }

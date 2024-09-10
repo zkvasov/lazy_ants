@@ -1,17 +1,22 @@
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:lazy_ants/presentation/models/user_session.dart';
 
 import '../../../core/bloc/base_cubit.dart';
 import '../../../domain/use_cases/auth/get_user_session_use_case.dart';
+import '../../../domain/use_cases/auth/login_use_case.dart';
 
 part 'login_page_state.dart';
 
 @injectable
 class LoginPageCubit extends BaseCubit<LoginPageState> {
   final GetUserSessionUseCase _getUserSessionUseCase;
+  final LoginUseCase _loginUseCase;
 
-  LoginPageCubit(this._getUserSessionUseCase)
-      : super(const LoginPageState(
+  LoginPageCubit(
+    this._getUserSessionUseCase,
+    this._loginUseCase,
+  ) : super(const LoginPageState(
           status: LoginPageStatus.loading,
         )) {
     _init();
@@ -33,6 +38,21 @@ class LoginPageCubit extends BaseCubit<LoginPageState> {
       } else {
         emit(state.copyWith(status: LoginPageStatus.success));
       }
+    });
+  }
+
+  Future<void> login({
+    required String email,
+    required String password,
+  }) {
+    return makeErrorHandledCall(() async {
+      await _loginUseCase.call(
+        UserSession(
+          email: email,
+          password: password,
+        ),
+      );
+      emit(state.copyWith(status: LoginPageStatus.success));
     });
   }
 }
