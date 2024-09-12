@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../domain/enteties/users/user.dart';
+import '../../../domain/entities/users/user.dart';
 import '../../../domain/use_cases/users/get_users_use_case.dart';
 import '../../core/bloc/base_cubit.dart';
 

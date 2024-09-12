@@ -1,6 +1,6 @@
 import 'package:lazy_ants/data/data_sources/api/api_client.dart';
 import 'package:lazy_ants/data/data_sources/storage/dao/users_dao.dart';
-import 'package:lazy_ants/domain/enteties/users/user.dart';
+import 'package:lazy_ants/domain/entities/users/user.dart';
 import 'package:lazy_ants/domain/repositories/users_repository.dart';
 
 import '../core/repository/base_repository.dart';
@@ -23,31 +23,30 @@ class UsersRepositoryImpl extends BaseRepository implements UsersRepository {
         users = await _apiClient.getUsers();
         await _usersDao.insertUsers(users);
       }
-      return users.map(_UserEntityExt.fromUserDto).toList();
+      return users.map((userDto) => userDto.toUser()).toList();
     });
   }
 
   @override
   Future<User> getUserDetails(int userId) {
     return makeErrorParsedCall(() async {
-      final user = await _usersDao.getUserById(userId);
-      return _UserEntityExt.fromUserDto(user);
+      final userDto = await _usersDao.getUserById(userId);
+      return userDto.toUser();
     });
   }
 }
 
-extension _UserEntityExt on User {
-  static User fromUserDto(UserDto user) {
+extension on UserDto {
+  User toUser() {
     return User(
-      id: user.id,
-      name: user.name,
-      username: user.username,
-      email: user.email,
-      address:
-          '${user.address.street}, ${user.address.suite}, ${user.address.city}',
-      phone: user.phone,
-      website: user.website,
-      company: user.company.name,
+      id: id,
+      name: name,
+      username: username,
+      email: email,
+      address: '${address.street}, ${address.suite}, ${address.city}',
+      phone: phone,
+      website: website,
+      company: company.name,
     );
   }
 }

@@ -4,7 +4,7 @@ part of 'local_storage.dart';
 
 // ignore_for_file: type=lint
 class $UserSessionTableTable extends UserSessionTable
-    with TableInfo<$UserSessionTableTable, UserSession> {
+    with TableInfo<$UserSessionTableTable, UserSessionDto> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -28,7 +28,7 @@ class $UserSessionTableTable extends UserSessionTable
   String get actualTableName => $name;
   static const String $name = 'user_session_table';
   @override
-  VerificationContext validateIntegrity(Insertable<UserSession> instance,
+  VerificationContext validateIntegrity(Insertable<UserSessionDto> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -50,9 +50,9 @@ class $UserSessionTableTable extends UserSessionTable
   @override
   Set<GeneratedColumn> get $primaryKey => {email};
   @override
-  UserSession map(Map<String, dynamic> data, {String? tablePrefix}) {
+  UserSessionDto map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return UserSession(
+    return UserSessionDto(
       email: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}email'])!,
       password: attachedDatabase.typeMapping
@@ -66,7 +66,7 @@ class $UserSessionTableTable extends UserSessionTable
   }
 }
 
-class UserSessionTableCompanion extends UpdateCompanion<UserSession> {
+class UserSessionTableCompanion extends UpdateCompanion<UserSessionDto> {
   final Value<String> email;
   final Value<String> password;
   final Value<int> rowid;
@@ -81,7 +81,7 @@ class UserSessionTableCompanion extends UpdateCompanion<UserSession> {
     this.rowid = const Value.absent(),
   })  : email = Value(email),
         password = Value(password);
-  static Insertable<UserSession> custom({
+  static Insertable<UserSessionDto> custom({
     Expression<String>? email,
     Expression<String>? password,
     Expression<int>? rowid,
@@ -1704,16 +1704,16 @@ class $$UserSessionTableTableOrderingComposer
 class $$UserSessionTableTableTableManager extends RootTableManager<
     _$LocalStorage,
     $UserSessionTableTable,
-    UserSession,
+    UserSessionDto,
     $$UserSessionTableTableFilterComposer,
     $$UserSessionTableTableOrderingComposer,
     $$UserSessionTableTableCreateCompanionBuilder,
     $$UserSessionTableTableUpdateCompanionBuilder,
     (
-      UserSession,
-      BaseReferences<_$LocalStorage, $UserSessionTableTable, UserSession>
+      UserSessionDto,
+      BaseReferences<_$LocalStorage, $UserSessionTableTable, UserSessionDto>
     ),
-    UserSession,
+    UserSessionDto,
     PrefetchHooks Function()> {
   $$UserSessionTableTableTableManager(
       _$LocalStorage db, $UserSessionTableTable table)
@@ -1754,16 +1754,16 @@ class $$UserSessionTableTableTableManager extends RootTableManager<
 typedef $$UserSessionTableTableProcessedTableManager = ProcessedTableManager<
     _$LocalStorage,
     $UserSessionTableTable,
-    UserSession,
+    UserSessionDto,
     $$UserSessionTableTableFilterComposer,
     $$UserSessionTableTableOrderingComposer,
     $$UserSessionTableTableCreateCompanionBuilder,
     $$UserSessionTableTableUpdateCompanionBuilder,
     (
-      UserSession,
-      BaseReferences<_$LocalStorage, $UserSessionTableTable, UserSession>
+      UserSessionDto,
+      BaseReferences<_$LocalStorage, $UserSessionTableTable, UserSessionDto>
     ),
-    UserSession,
+    UserSessionDto,
     PrefetchHooks Function()>;
 typedef $$GeosTableCreateCompanionBuilder = GeosCompanion Function({
   Value<int> id,

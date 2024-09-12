@@ -1,4 +1,4 @@
-import '../../presentation/models/user_session.dart';
+import '../entities/auth/user_session.dart';
 
 abstract class AuthRepository {
   Future<UserSession?> getUserSession();

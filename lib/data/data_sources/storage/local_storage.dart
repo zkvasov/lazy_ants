@@ -9,7 +9,7 @@ import 'package:lazy_ants/data/data_sources/storage/tables/users/users_table.dar
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-import '../../../presentation/models/user_session.dart';
+import '../models/auth/user_session_dto.dart';
 import 'tables/auth/user_session_table.dart';
 import 'tables/users/addresses_table.dart';
 import 'views/indicators_view.dart';

@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:lazy_ants/domain/repositories/auth_repository.dart';
-import 'package:lazy_ants/presentation/models/user_session.dart';
+
+import '../../entities/auth/user_session.dart';
 
 @lazySingleton
 class LoginUseCase {

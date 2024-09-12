@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:lazy_ants/presentation/models/user_session.dart';
 
+import '../../../domain/entities/auth/user_session.dart';
 import '../../../domain/use_cases/auth/get_user_session_use_case.dart';
 import '../../../domain/use_cases/auth/login_use_case.dart';
 import '../../core/bloc/base_cubit.dart';

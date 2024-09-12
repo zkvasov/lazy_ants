@@ -1,7 +1,8 @@
+import 'package:lazy_ants/data/data_sources/models/auth/user_session_dto.dart';
 import 'package:lazy_ants/data/data_sources/storage/dao/user_session_dao.dart';
 import 'package:lazy_ants/domain/repositories/auth_repository.dart';
-import 'package:lazy_ants/presentation/models/user_session.dart';
 
+import '../../domain/entities/auth/user_session.dart';
 import '../core/repository/base_repository.dart';
 
 class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
@@ -11,15 +12,33 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
 
   @override
   Future<UserSession?> getUserSession() {
-    return makeErrorParsedCall(() {
-      return _userSessionDao.getSession();
+    return makeErrorParsedCall(() async {
+      return (await _userSessionDao.getSession())?.toUserSession();
     });
   }
 
   @override
   Future<void> login(UserSession session) {
     return makeErrorParsedCall(() {
-      return _userSessionDao.insertSession(session);
+      return _userSessionDao.insertSession(session.toUserSessionDto());
     });
+  }
+}
+
+extension on UserSessionDto {
+  UserSession toUserSession() {
+    return UserSession(
+      email: email,
+      password: password,
+    );
+  }
+}
+
+extension on UserSession {
+  UserSessionDto toUserSessionDto() {
+    return UserSessionDto(
+      email: email,
+      password: password,
+    );
   }
 }

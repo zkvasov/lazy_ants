@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
 
-import '../../../../../presentation/models/user_session.dart';
+import '../../../models/auth/user_session_dto.dart';
 
-@UseRowClass(UserSession)
+@UseRowClass(UserSessionDto)
 class UserSessionTable extends Table {
   TextColumn get email => text()();
   TextColumn get password => text()();

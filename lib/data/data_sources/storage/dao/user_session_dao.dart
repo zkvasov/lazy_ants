@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:lazy_ants/data/data_sources/storage/local_storage.dart';
 import 'package:lazy_ants/data/data_sources/storage/tables/auth/user_session_table.dart';
 
-import '../../../../presentation/models/user_session.dart';
+import '../../models/auth/user_session_dto.dart';
 
 part 'user_session_dao.g.dart';
 
@@ -13,7 +13,7 @@ class UserSessionDao extends DatabaseAccessor<LocalStorage>
     with _$UserSessionDaoMixin {
   UserSessionDao(super.db);
 
-  Future<void> insertSession(UserSession session) async {
+  Future<void> insertSession(UserSessionDto session) async {
     await userSessionTable.deleteAll();
     userSessionTable.insertOnConflictUpdate(UserSessionTableCompanion.insert(
       email: session.email,
@@ -21,7 +21,7 @@ class UserSessionDao extends DatabaseAccessor<LocalStorage>
     ));
   }
 
-  Future<UserSession?> getSession() {
+  Future<UserSessionDto?> getSession() {
     return select(userSessionTable).getSingleOrNull();
   }
 }

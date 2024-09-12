@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:lazy_ants/domain/enteties/users/user.dart';
+import 'package:lazy_ants/domain/entities/users/user.dart';
 
 import '../../repositories/users_repository.dart';
 
